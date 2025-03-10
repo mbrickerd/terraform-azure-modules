@@ -1,9 +1,8 @@
-.PHONY: init format validate plan apply destroy clean setup all check package-gcp package-azure
+.PHONY: init format validate plan apply destroy clean setup all check docs help init-all
 
-# Update MODULES to match your actual directory structure
-MODULES := $(shell find ./modules/azure ./modules/gcp -type d -not -path "*/\.*" | grep -v "modules/azure$$" | grep -v "modules/gcp$$")
+MODULES := $(shell find ./modules -type d -not -path "*/\.*" | grep -v "modules$$")
 
-all: format validate docs
+all: init format validate docs
 
 init:
 	terraform init
@@ -16,10 +15,10 @@ validate: init
 	@find ./modules -type d -name ".terraform" -prune -o -name "*.tf" -exec dirname {} \; | sort -u | xargs -I {} sh -c 'cd {} && terraform validate'
 
 docs:
-	@for d in $(MODULES); do \
-		if [ -f "$$d/main.tf" ]; then \
-			echo "Generating docs for $$d"; \
-			terraform-docs markdown $$d --output-file=README.md; \
+	@for module in $(MODULES); do \
+		if [ -f "$$module/main.tf" ]; then \
+			echo "Generating docs for $$module"; \
+			cd "$$module" && terraform-docs markdown . > README.md && cd - > /dev/null; \
 		fi; \
 	done
 
@@ -52,24 +51,6 @@ setup:
 	pipx install pre-commit
 	pre-commit install
 
-package-gcp:
-	@mkdir -p dist/gcp
-	@VERSION=$$(grep -oP 'module_version\s*=\s*"\K[^"]+' modules/gcp/versions.tf 2>/dev/null || echo "0.1.0"); \
-	PACKAGE_NAME="terraform-gcp-modules-$${VERSION}"; \
-	mkdir -p "dist/gcp/$${PACKAGE_NAME}"; \
-	cp -r ./modules/gcp/* "dist/gcp/$${PACKAGE_NAME}/"; \
-	cd dist/gcp && zip -r "$${PACKAGE_NAME}.zip" "$${PACKAGE_NAME}" && cd ../..; \
-	echo "Package created at dist/gcp/$${PACKAGE_NAME}.zip"
-
-package-azure:
-	@mkdir -p dist/azure
-	@VERSION=$$(grep -oP 'module_version\s*=\s*"\K[^"]+' modules/azure/versions.tf 2>/dev/null || echo "0.1.0"); \
-	PACKAGE_NAME="terraform-azure-modules-$${VERSION}"; \
-	mkdir -p "dist/azure/$${PACKAGE_NAME}"; \
-	cp -r ./modules/azure/* "dist/azure/$${PACKAGE_NAME}/"; \
-	cd dist/azure && zip -r "$${PACKAGE_NAME}.zip" "$${PACKAGE_NAME}" && cd ../..; \
-	echo "Package created at dist/azure/$${PACKAGE_NAME}.zip"
-
 init-all:
 	@find ./modules -type d -name ".terraform" -prune -o -name "*.tf" -exec dirname {} \; | sort -u | xargs -I {} sh -c 'cd {} && terraform init -backend=false'
 
@@ -87,5 +68,3 @@ help:
 	@echo "  clean        - Clean up generated files and directories"
 	@echo "  setup        - Setup development environment"
 	@echo "  all          - Run format, validate, and docs (default)"
-	@echo "  package-gcp  - Package GCP modules locally"
-	@echo "  package-azure - Package Azure modules locally"
