@@ -29,13 +29,12 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive modules/
 
-      - name: Install TFLint
+      - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
 
       - name: Run TFLint
-        run: |
-          tflint --init
-          tflint --recursive modules/
+        run: tflint --init
+        working-directory: modules
 
   security:
     name: Security Scan
