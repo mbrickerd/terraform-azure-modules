@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -10,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.21.1 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.22.0 |
 
 ## Modules
 
@@ -39,4 +38,3 @@ No modules.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Resource Group. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Resource Group. |
-<!-- END_TF_DOCS -->

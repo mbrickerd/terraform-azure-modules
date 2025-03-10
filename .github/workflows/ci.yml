@@ -1,0 +1,52 @@
+name: Azure Terraform CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "modules/**"
+      - ".github/workflows/ci.yml"
+      - ".pre-commit-config.yaml"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate:
+    name: Validate Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.4.2"
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive modules/
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v3
+
+      - name: Run TFLint
+        run: tflint --init
+        working-directory: modules
+
+  security:
+    name: Security Scan
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: modules
+          framework: terraform
+          soft_fail: true

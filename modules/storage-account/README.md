@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -144,4 +143,3 @@ No modules.
 | <a name="output_secondary_web_internet_host"></a> [secondary\_web\_internet\_host](#output\_secondary\_web\_internet\_host) | The internet routing hostname with port if applicable for web storage in the secondary location. |
 | <a name="output_secondary_web_microsoft_endpoint"></a> [secondary\_web\_microsoft\_endpoint](#output\_secondary\_web\_microsoft\_endpoint) | The microsoft routing endpoint URL for web storage in the secondary location. |
 | <a name="output_secondary_web_microsoft_host"></a> [secondary\_web\_microsoft\_host](#output\_secondary\_web\_microsoft\_host) | The microsoft routing hostname with port if applicable for web storage in the secondary location. |
-<!-- END_TF_DOCS -->
