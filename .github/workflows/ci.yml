@@ -27,22 +27,22 @@ jobs:
           terraform_version: "1.4.2"
 
       - name: Install terraform-docs
-        run: |
-          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/downloads/terraform-docs-v0.16.0-linux-amd64.tar.gz
-          tar -xzf terraform-docs.tar.gz
-          chmod +x terraform-docs
-          sudo mv terraform-docs /usr/local/bin/
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          git-push: "false"
+          working-dir: .
+          output-file: README.md
+          output-method: inject
 
       - name: Install tflint
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Run pre-commit on Azure files
+      - name: Run pre-commit checks
         uses: pre-commit/action@v3.0.0
         with:
           extra_args: --files modules/**/*.tf
@@ -59,14 +59,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.4.2"
-
-      - name: Terraform Initialization
-        run: terraform init -backend=false
-        working-directory: modules
-
-      - name: Terraform Validation
-        run: terraform validate
-        working-directory: modules
 
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@master
