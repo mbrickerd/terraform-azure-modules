@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -46,4 +45,3 @@ No modules.
 | <a name="output_address_prefixes"></a> [address\_prefixes](#output\_address\_prefixes) | The address prefixes for the subnet. |
 | <a name="output_id"></a> [id](#output\_id) | The subnet ID. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the subnet. |
-<!-- END_TF_DOCS -->

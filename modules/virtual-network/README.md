@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -51,4 +50,3 @@ No modules.
 | <a name="output_guid"></a> [guid](#output\_guid) | The GUID of the virtual network. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the virtual network. |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The list of names of the subnets that are attached to this virtual network. |
-<!-- END_TF_DOCS -->
