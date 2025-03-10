@@ -14,8 +14,8 @@ permissions:
   pull-requests: read
 
 jobs:
-  lint:
-    name: Lint
+  validate:
+    name: Validate Terraform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,48 +26,16 @@ jobs:
         with:
           terraform_version: "1.4.2"
 
-      - name: Setup TFLint
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive modules/
+
+      - name: Install TFLint
         uses: terraform-linters/setup-tflint@v3
 
-      - name: Install terraform-docs
+      - name: Run TFLint
         run: |
-          curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v0.16.0/terraform-docs-v0.16.0-linux-amd64.tar.gz > terraform-docs.tar.gz
-          tar -xzf terraform-docs.tar.gz
-          chmod +x terraform-docs
-          sudo mv terraform-docs /usr/local/bin/
-
-      - name: Cache pre-commit
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-
-      - name: Run pre-commit
-        uses: pre-commit/action@v3.0.0
-        with:
-          extra_args: --files modules/**/*.tf
-
-  validate:
-    name: Validate
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.4.2"
-
-      - name: Cache Terraform
-        uses: actions/cache@v3
-        with:
-          path: ~/.terraform.d/plugin-cache
-          key: terraform-plugins-${{ hashFiles('modules/**/versions.tf') }}
-
-      - name: Terraform Format
-        run: terraform fmt -check -recursive modules/
+          tflint --init
+          tflint --recursive modules/
 
   security:
     name: Security Scan
