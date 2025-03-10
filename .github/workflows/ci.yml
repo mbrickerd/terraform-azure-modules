@@ -9,6 +9,10 @@ on:
       - ".github/workflows/ci.yml"
       - ".pre-commit-config.yaml"
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   pre-commit:
     name: Pre-commit Checks
@@ -41,21 +45,16 @@ jobs:
           terraform_version: "1.4.2"
 
       - name: Terraform Initialization
-        uses: hashicorp/terraform-github-actions@v2
-        with:
-          command: init
-          path: modules/azure
-          arguments: -backend=false
+        run: terraform init -backend=false
+        working-directory: modules/azure
 
       - name: Terraform Validation
-        uses: hashicorp/terraform-github-actions@v2
-        with:
-          command: validate
-          path: modules/azure
+        run: terraform validate
+        working-directory: modules
 
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@master
         with:
-          directory: modules/azure
+          directory: modules
           config_file: checkov.yaml
           soft_fail: true
