@@ -39,3 +39,4 @@ No modules.
 | <a name="output_has_immutability_policy"></a> [has\_immutability\_policy](#output\_has\_immutability\_policy) | Whether there is an Immutability Policy configured on this Storage Container. |
 | <a name="output_has_legal_hold"></a> [has\_legal\_hold](#output\_has\_legal\_hold) | Whether there is a Legal Hold configured on this Storage Container. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Storage Container. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Storage Container. |
