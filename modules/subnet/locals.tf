@@ -1,3 +1,3 @@
 locals {
-  name = "snet-${var.prefix}-${var.name}-${var.environment}"
+  name = "snet-${var.name}-${var.environment}"
 }
