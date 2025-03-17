@@ -1,8 +1,3 @@
-variable "prefix" {
-  description = "The prefix name that will be used in the resource group naming convention."
-  type        = string
-}
-
 variable "name" {
   description = "The base name that will be used in the resource group naming convention."
   type        = string

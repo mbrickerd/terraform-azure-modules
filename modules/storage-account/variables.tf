@@ -2,12 +2,6 @@ variable "resource_group_name" {
   description = "The name of the Resource Group where the Storage Account should be created."
   type        = string
 }
-
-variable "prefix" {
-  description = "The prefix name that will be used in the storage account naming convention."
-  type        = string
-}
-
 variable "name" {
   description = "The base name that will be used in the storage account naming convention."
   type        = string

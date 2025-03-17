@@ -3,11 +3,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "prefix" {
-  description = "The prefix name that will be used in the virtual network naming convention."
-  type        = string
-}
-
 variable "name" {
   description = "The base name that will be used in the virtual network naming convention."
   type        = string
