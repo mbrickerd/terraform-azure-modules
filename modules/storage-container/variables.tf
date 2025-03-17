@@ -28,12 +28,7 @@ variable "default_encryption_scope" {
 variable "encryption_scope_override_enabled" {
   description = "Whether to allow blobs to override the default encryption scope for this container. Can only be set when specifying `default_encryption_scope`. Defaults to `true`."
   type        = bool
-  default     = true
-
-  validation {
-    condition     = var.default_encryption_scope != null || var.encryption_scope_override_enabled == true
-    error_message = "When default_encryption_scope is not specified, encryption_scope_override_enabled must be true."
-  }
+  default     = null
 }
 
 variable "metadata" {

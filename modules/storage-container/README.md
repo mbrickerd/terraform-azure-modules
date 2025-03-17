@@ -27,7 +27,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_container_access_type"></a> [container\_access\_type](#input\_container\_access\_type) | The Access Level configured for this Container. Defaults to `private`. | `string` | `"private"` | no |
 | <a name="input_default_encryption_scope"></a> [default\_encryption\_scope](#input\_default\_encryption\_scope) | The default encryption scope to use for blobs uploaded to this container. | `string` | `null` | no |
-| <a name="input_encryption_scope_override_enabled"></a> [encryption\_scope\_override\_enabled](#input\_encryption\_scope\_override\_enabled) | Whether to allow blobs to override the default encryption scope for this container. Can only be set when specifying `default_encryption_scope`. Defaults to `true`. | `bool` | `true` | no |
+| <a name="input_encryption_scope_override_enabled"></a> [encryption\_scope\_override\_enabled](#input\_encryption\_scope\_override\_enabled) | Whether to allow blobs to override the default encryption scope for this container. Can only be set when specifying `default_encryption_scope`. Defaults to `true`. | `bool` | `null` | no |
 | <a name="input_metadata"></a> [metadata](#input\_metadata) | A mapping of MetaData for this Container. All metadata keys should be lowercase. | `map(string)` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the Container which should be created within the Storage Account. | `string` | n/a | yes |
 | <a name="input_storage_account_id"></a> [storage\_account\_id](#input\_storage\_account\_id) | The ID of the Storage Account where the Container should be created. | `string` | n/a | yes |
