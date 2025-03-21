@@ -20,7 +20,9 @@ repos:
           - --hook-config=--retry-once-with-cleanup=true
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.35
+    rev: 3.2.390
     hooks:
       - id: checkov
-        args: [--quiet]
+        args:
+          - --config-file
+          - checkov.yaml

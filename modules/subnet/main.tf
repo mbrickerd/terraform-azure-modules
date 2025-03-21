@@ -1,5 +1,4 @@
 resource "azurerm_subnet" "this" {
-  #checkov:skip=CKV2_AZURE_31:Ensure VNET subnet is configured with a Network Security Group (NSG)
   name                 = local.name
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name

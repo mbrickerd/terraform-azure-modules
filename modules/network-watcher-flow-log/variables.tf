@@ -40,11 +40,15 @@ variable "enabled" {
 }
 
 variable "retention_policy" {
-  description = "Retention policy for flow logs"
+  description = "The retention policy for flow logs."
   type = object({
     enabled = bool
     days    = number
   })
+  default = {
+    enabled = true
+    days    = 91
+  }
 
   validation {
     condition     = var.retention_policy.days > 0
