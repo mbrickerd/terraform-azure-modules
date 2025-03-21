@@ -14,8 +14,23 @@ permissions:
   pull-requests: read
 
 jobs:
+  check-skip:
+    name: Scan Commit
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.skip-check.outputs.skip }}
+    steps:
+      - name: Skip CI Check
+        uses: saulmaldonado/skip-workflow@v1
+        id: skip-check
+        with:
+          phrase: '[skip ci]'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   validate:
     name: Validate Terraform
+    needs: check-skip
+    if: ${{ needs.check-skip.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,7 +53,8 @@ jobs:
 
   security:
     name: Security Scan
-    needs: validate
+    needs: [check-skip, validate]
+    if: ${{ needs.check-skip.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

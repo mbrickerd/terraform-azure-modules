@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   release:
@@ -19,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth:
+          fetch-depth: 0
 
       - name: Semantic versioning
         id: versioning
@@ -39,30 +40,9 @@ jobs:
           makeLatest: true
           draft: false
 
-  update-docs:
-    name: Update Module Documentation
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Get latest version
-        id: latest_version
-        uses: pozetroninc/github-action-get-latest-release@v0.6.0
+      - name: Trigger documentation workflow
+        uses: benc-uk/workflow-dispatch@v1
         with:
-          repository: ${{ github.repository }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.4.2"
-
-      - name: Update terraform-docs
-        uses: terraform-docs/gh-actions@v1
-        with:
-          working-dir: modules
-          output-file: README.md
-          output-method: inject
-          git-push: "true"
-          git-commit-message: "docs: Update module documentation for ${{ steps.latest_version.outputs.release }}"
+          workflow: docs.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"version": "${{ steps.versioning.outputs.new_tag }}", "changelog": "${{ steps.versioning.outputs.changelog }}"}'
