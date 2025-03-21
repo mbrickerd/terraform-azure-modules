@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   check-skip:
-    name: Check if CI should be skipped
+    name: Scan Commit
     runs-on: ubuntu-latest
     outputs:
       skip: ${{ steps.skip-check.outputs.skip }}
