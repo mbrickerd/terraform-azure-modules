@@ -98,9 +98,9 @@ variable "min_tls_version" {
 }
 
 variable "allow_nested_items_to_be_public" {
-  description = "Whether nested items within this Account can opt into being public. Defaults to `true`."
+  description = "Whether nested items within this Account can opt into being public. Defaults to `false`."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "shared_access_key_enabled" {
@@ -110,9 +110,9 @@ variable "shared_access_key_enabled" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Whether the public network access is enabled. Defaults to `true`."
+  description = "Whether the public network access is enabled. Defaults to `false`."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "default_to_oauth_authentication" {
@@ -424,15 +424,21 @@ variable "network_rules" {
   description = "Network rules that control access to the storage account. Includes default action (allow/deny), service bypass options, IP rules, virtual network rules, and private link access configurations."
   type = object({
     default_action             = string
-    bypass                     = optional(list(string), ["AzureServices"])
-    ip_rules                   = optional(list(string), [])
-    virtual_network_subnet_ids = optional(list(string), [])
+    bypass                     = list(string)
+    ip_rules                   = list(string)
+    virtual_network_subnet_ids = list(string)
     private_link_access = optional(list(object({
       endpoint_resource_id = string
       endpoint_tenant_id   = optional(string)
-    })), [])
+    })))
   })
-  default = null
+  default = {
+    default_action             = "Deny"
+    bypass                     = ["AzureServices"]
+    ip_rules                   = []
+    virtual_network_subnet_ids = []
+    private_link_access        = []
+  }
 
   validation {
     condition     = var.network_rules == null ? true : contains(["Allow", "Deny"], var.network_rules.default_action)
@@ -486,9 +492,9 @@ variable "large_file_share_enabled" {
 }
 
 variable "local_user_enabled" {
-  description = "Whether local user is enabled. Defaults to `true`."
+  description = "Whether local user is enabled. Defaults to `false`."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "azure_files_authentication" {

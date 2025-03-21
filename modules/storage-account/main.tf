@@ -1,14 +1,4 @@
 resource "azurerm_storage_account" "this" {
-  #checkov:skip=CKV_AZURE_33:Ensure Storage logging is enabled for Queue service for read, write and delete requests
-  #checkov:skip=CKV2_AZURE_33:Ensure storage account is configured with private endpoint
-  #checkov:skip=CKV_AZURE_35:Ensure default network access rule for Storage Accounts is set to deny
-  #checkov:skip=CKV_AZURE_36:Ensure 'Trusted Microsoft Services' is enabled for Storage Account access
-  #checkov:skip=CKV2_AZURE_38:Ensure soft-delete is enabled on Azure storage account
-  #checkov:skip=CKV2_AZURE_40:Ensure storage account is not configured with Shared Key authorization
-  #checkov:skip=CKV2_AZURE_47:Ensure storage account is configured without blob anonymous access
-  #checkov:skip=CKV_AZURE_59:Ensure that Storage accounts disallow public access
-  #checkov:skip=CKV_AZURE_190:Ensure that Storage blobs restrict public access
-  #checkov:skip=CKV_AZURE_206:Ensure that Storage Accounts use replication
   name                              = local.name
   resource_group_name               = var.resource_group_name
   location                          = var.location
