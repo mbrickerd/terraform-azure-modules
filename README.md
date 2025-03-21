@@ -1,6 +1,20 @@
 # Azure Terraform Modules
 
-This repository contains reusable Terraform modules for Azure resources that can be used across various different projects.
+This repository houses a collection of standardised, reusable Terraform modules for provisioning and managing Azure resources. These modules are designed to enforce best practices, simplify infrastructure deployment, and provide consistent configuration across multiple projects.
+
+Each module abstracts away the complexity of Azure resource provisioning, offering a carefully designed interface that balances flexibility with standardisation. By using these modules, teams can accelerate development while maintaining compliance with organisational standards for security, tagging, naming conventions, and resource configuration.
+
+## Benefits
+
+- **Consistency**: Enforce standardised resource configurations across all projects
+- **Maintainability**: Centralised module updates propagate improvements to all consuming projects
+- **Efficiency**: Reduce boilerplate code and accelerate infrastructure deployment
+- **Compliance**: Built-in best practices for security, resilience, and cost optimisation
+- **Collaboration**: Shared modules create a common language for infrastructure development
+
+## Getting Started
+
+Modules can be referenced in your Terraform configurations using the standard module source syntax pointing to this repository.
 
 ## Prerequisites
 
@@ -126,3 +140,14 @@ make checkov  # Run security checks with Checkov
 | [storage-container](./modules/storage-container/README.md) | Manages blob containers within storage accounts |
 | [subnet](./modules/subnet/README.md) | Configures subnets within virtual networks |
 | [virtual-network](./modules/virtual-network/README.md) | Creates and manages Azure virtual networks |
+
+## Contributing
+
+- Fork the repository
+- Create a feature branch (`git checkout -b feature/amazing-feature`)
+- Make your changes
+- Run linting and validation (`make test`)
+- Update documentation (`make docs`)
+- Commit your changes (`git commit -m 'Add amazing feature'`)
+- Push to the branch (`git push origin feature/amazing-feature`)
+- Open a Pull Request
