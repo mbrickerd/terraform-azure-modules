@@ -69,7 +69,7 @@ module "resource_group" {
   location = "westeurope"
   tags     = {
     Environment = "Development"
-    Project     = "Example"
+    Project     = "Example Project Name"
   }
 }
 ```
