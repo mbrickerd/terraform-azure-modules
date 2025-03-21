@@ -1,5 +1,4 @@
 resource "azurerm_network_watcher_flow_log" "this" {
-  #checkov:skip=CKV_AZURE_12:Ensure that Network Security Group Flow Log retention period is 'greater than 90 days'
   name                 = local.name
   network_watcher_name = local.network_watcher_name
   resource_group_name  = var.resource_group_name
