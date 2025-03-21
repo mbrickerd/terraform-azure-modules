@@ -1,4 +1,4 @@
-# Azure Terraform Modules
+# terraform-azure-modules
 
 This repository houses a collection of standardised, reusable Terraform modules for provisioning and managing Azure resources. These modules are designed to enforce best practices, simplify infrastructure deployment, and provide consistent configuration across multiple projects.
 
