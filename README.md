@@ -1,6 +1,6 @@
 # Azure Terraform Modules
 
-This repository contains reusable Terraform modules for Azure resources that follow best practices and can be used across different projects.
+This repository contains reusable Terraform modules for Azure resources that can be used across various different projects.
 
 ## Prerequisites
 
