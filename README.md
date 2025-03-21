@@ -103,7 +103,7 @@ pre-commit run --all-files
 
 The repository includes a Makefile to simplify common development tasks:
 
-#### Generate Documentation
+#### Docs
 
 Generate documentation for all modules:
 
