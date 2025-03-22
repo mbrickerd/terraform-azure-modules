@@ -4,10 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "modules/**"
-      - ".github/workflows/ci.yml"
-      - ".pre-commit-config.yaml"
 
 permissions:
   contents: read
