@@ -101,5 +101,6 @@ No modules.
 | <a name="output_dns_servers"></a> [dns\_servers](#output\_dns\_servers) | The list of DNS servers used by the virtual network. |
 | <a name="output_guid"></a> [guid](#output\_guid) | The GUID of the virtual network. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the virtual network. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the virtual network. |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The list of names of the subnets that are attached to this virtual network. |
 <!-- END_TF_DOCS -->
