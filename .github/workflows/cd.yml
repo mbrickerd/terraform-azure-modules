@@ -3,12 +3,12 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "modules/**"
-      - ".github/workflows/cd.yml"
+  workflow_dispatch:
+
 permissions:
   contents: write
   actions: write
+
 jobs:
   release:
     name: Create Release
@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - name: Semantic versioning
         id: versioning
         uses: mathieudutour/github-tag-action@v6.1
@@ -26,7 +26,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: patch
           release_branches: main
-          
+
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
@@ -36,7 +36,7 @@ jobs:
           body: ${{ steps.versioning.outputs.changelog }}
           makeLatest: true
           draft: false
-          
+
       - name: Trigger documentation workflow
         uses: benc-uk/workflow-dispatch@v1
         with:
