@@ -78,4 +78,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Network Security Group. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Network Security Group. |
 <!-- END_TF_DOCS -->
