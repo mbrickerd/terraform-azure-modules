@@ -3,6 +3,11 @@ output "id" {
   value       = azurerm_virtual_network.this.id
 }
 
+output "name" {
+  description = "The name of the virtual network."
+  value       = azurerm_virtual_network.this.name
+}
+
 output "address_space" {
   description = "The list of address spaces used by the virtual network."
   value       = azurerm_virtual_network.this.address_space
