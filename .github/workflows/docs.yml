@@ -62,6 +62,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "docs/update-for-${{ inputs.version }}"
           base: main
+          delete-branch: true
           title: "docs: Update module documentation for ${{ inputs.version }}"
           body: |
             ## Automated Documentation Update
