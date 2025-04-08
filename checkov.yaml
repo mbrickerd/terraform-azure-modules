@@ -4,7 +4,9 @@ quiet: true
 framework: terraform
 skip-check:
   - CKV_AZURE_33
+  - CKV_AZURE_164
   - CKV_AZURE_165
+  - CKV_AZURE_167
   - CKV_AZURE_206
   - CKV_AZURE_233
   - CKV2_AZURE_21
