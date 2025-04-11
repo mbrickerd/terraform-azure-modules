@@ -19,6 +19,23 @@ variable "environment" {
   }
 }
 
+variable "location" {
+  description = "The location where the Container App resources will be created."
+  type        = string
+}
+
+variable "sku" {
+  description = "The SKU of the Log Analytics Workspace."
+  type        = string
+  default     = "PerGB2018"
+}
+
+variable "retention_days" {
+  description = "The retention period for the Log Analytics Workspace logs in days."
+  type        = number
+  default     = 30
+}
+
 variable "revision_mode" {
   description = "The revision mode of the Container App. Possible values are `Single` and `Multiple`."
   type        = string
