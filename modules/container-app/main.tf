@@ -1,5 +1,24 @@
+resource "azurerm_log_analytics_workspace" "this" {
+  name                = local.law_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                 = var.sku
+  retention_in_days   = var.retention_days
+
+  tags = local.tags
+}
+
+resource "azurerm_container_app_environment" "this" {
+  name                       = local.cae_name
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+
+  tags = local.tags
+}
+
 resource "azurerm_container_app" "this" {
-  name                         = local.name
+  name                         = local.app_name
   container_app_environment_id = var.container_app_environment_id
   resource_group_name          = var.resource_group_name
   revision_mode                = var.revision_mode
