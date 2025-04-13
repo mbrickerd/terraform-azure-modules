@@ -2,63 +2,42 @@ name: Azure Terraform CI
 
 on:
   pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: read
-  pull-requests: read
+    branches: ['*']
 
 jobs:
-  check-skip:
-    name: Scan Commit
+  ci:
+    name: Pre-commit Checks
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.skip-check.outputs.skip }}
+    permissions:
+      contents: read
+
     steps:
-      - name: Skip CI Check
-        uses: saulmaldonado/skip-workflow@v1
-        id: skip-check
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          phrase: '[skip ci]'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: '3.12'
 
-  validate:
-    name: Validate Terraform
-    needs: check-skip
-    if: ${{ needs.check-skip.outputs.skip != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
+      - name: Install terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.4.2"
+          terraform_version: "1.11.2"
 
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive modules/
-
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v3
-
-      - name: Run TFLint
-        run: tflint --init
-        working-directory: modules
-
-  security:
-    name: Security Scan
-    needs: [check-skip, validate]
-    if: ${{ needs.check-skip.outputs.skip != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Checkov
-        uses: bridgecrewio/checkov-action@master
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v4
         with:
-          directory: modules
-          framework: terraform
-          soft_fail: true
+          path: |
+            ~/.cache/pre-commit
+            ~/.cache/pre-commit-hooks
+          key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: pre-commit installation
+        id: pre-commit-install
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          pip install pre-commit
+          pre-commit install
+
+      - name: Pre-commit validation
+        id: pre-commit
+        run: pre-commit run --all-files
