@@ -52,11 +52,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "container_app_environment_id" {
-  description = "The ID of the Container Apps Environment where this Container App should be created."
-  type        = string
-}
-
 variable "template" {
   description = "The template for the Container App."
   type = object({
