@@ -36,10 +36,3 @@ jobs:
           body: ${{ steps.versioning.outputs.changelog }}
           makeLatest: true
           draft: false
-
-      - name: Trigger documentation workflow
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: docs.yml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          inputs: '{"version": "${{ steps.versioning.outputs.new_tag }}", "changelog": ${{ toJSON(steps.versioning.outputs.changelog) }}}'
