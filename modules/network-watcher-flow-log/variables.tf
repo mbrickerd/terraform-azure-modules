@@ -8,13 +8,13 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Specifies the environment the Network Watcher Flow Log belongs to."
+  description = "Specifies the environment the Container App belongs to."
   type        = string
   default     = "dev"
 
   validation {
-    condition     = contains(["dev", "tst", "acc", "stg", "prd", "mgmt"], var.environment)
-    error_message = "Invalid value for environment. Must be one of: `dev`, `tst`, `acc`, `stg`, `prd`, `mgmt`."
+    condition     = contains(["dev", "tst", "acc", "stg", "prd", "mgmt", "shared", "common"], var.environment)
+    error_message = "Invalid value for environment. Must be one of: `dev`, `tst`, `acc`, `stg`, `prd`, `mgmt`, `shared`, `common`."
   }
 }
 

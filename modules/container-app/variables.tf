@@ -14,8 +14,8 @@ variable "environment" {
   default     = "dev"
 
   validation {
-    condition     = contains(["dev", "tst", "acc", "stg", "prd", "mgmt"], var.environment)
-    error_message = "Invalid value for environment. Must be one of: `dev`, `tst`, `acc`, `stg`, `prd`, `mgmt`."
+    condition     = contains(["dev", "tst", "acc", "stg", "prd", "mgmt", "shared", "common"], var.environment)
+    error_message = "Invalid value for environment. Must be one of: `dev`, `tst`, `acc`, `stg`, `prd`, `mgmt`, `shared`, `common`."
   }
 }
 
