@@ -28,7 +28,7 @@ locals {
   prometheus_rule_name             = "prometheus-rule-${local.naming_convention}"
   prometheus_rule_association_name = "prometheus-rule-association-${local.naming_convention}"
 
-  grafana_name = "grafana-${local.naming_convention}"
+  grafana_name = "gra-${local.naming_convention}"
   grafana_tags = merge(local.tags, { component = "grafana" })
 
   tags = merge(var.tags, { environment = var.environment })
