@@ -51,5 +51,5 @@ resource "azurerm_eventhub_namespace" "this" {
     delete = var.timeouts != null ? try(var.timeouts.delete, null) : null
   }
 
-  tags = merge(local.tags, var.tags)
+  tags = local.tags
 }

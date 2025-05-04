@@ -72,7 +72,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Whether Network Flow Logging should be enabled. | `bool` | n/a | yes |
-| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the Network Watcher Flow Log belongs to. | `string` | `"dev"` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the Container App belongs to. | `string` | `"dev"` | no |
 | <a name="input_flow_log_version"></a> [flow\_log\_version](#input\_flow\_log\_version) | The version (revision) of the flow log. | `number` | `1` | no |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the Network Watcher Flow Log exists. | `string` | `"westeurope"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The base name that will be used in the Network Watcher Flow Log naming convention. | `string` | n/a | yes |

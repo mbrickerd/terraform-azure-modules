@@ -1,48 +1,82 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = var.cluster_name
-  location            = var.location
   resource_group_name = var.resource_group_name
-  dns_prefix          = var.dns_prefix != null ? var.dns_prefix : var.cluster_name
+  name                = local.name
+  location            = var.location
+  dns_prefix          = local.dns_prefix
   kubernetes_version  = var.kubernetes_version
-  node_resource_group = var.node_resource_group
   sku_tier            = var.sku_tier
 
   default_node_pool {
-    name            = var.default_node_pool.name
-    vm_size         = var.default_node_pool.vm_size
-    node_count      = var.default_node_pool.node_count
-    min_count       = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.min_count : null
-    max_count       = var.default_node_pool.enable_auto_scaling ? var.default_node_pool.max_count : null
-    vnet_subnet_id  = var.default_node_pool.vnet_subnet_id
-    zones           = var.default_node_pool.zones
-    os_disk_size_gb = var.default_node_pool.os_disk_size_gb
-    os_disk_type    = var.default_node_pool.os_disk_type
-    tags            = merge(var.tags, var.default_node_pool.tags)
+    name                 = var.default_node_pool_name
+    vm_size              = var.default_node_pool_vm_size
+    min_count            = local.min_count
+    max_count            = local.max_count
+    node_count           = local.node_count
+    os_disk_size_gb      = var.os_disk_size_gb
+    os_disk_type         = var.os_disk_type
+    max_pods             = var.max_pods
+    scale_down_mode      = var.scale_down_mode
+    orchestrator_version = var.kubernetes_version
+    zones                = var.availability_zones
+    upgrade_settings {
+      max_surge = var.max_surge
+    }
   }
 
   identity {
     type = "SystemAssigned"
   }
-
-  network_profile {
-    network_plugin    = var.network_profile.network_plugin
-    network_policy    = var.network_profile.network_policy
-    load_balancer_sku = var.network_profile.load_balancer_sku
-    service_cidr      = var.network_profile.service_cidr
-    dns_service_ip    = var.network_profile.dns_service_ip
-    outbound_type     = var.network_profile.outbound_type
+  azure_active_directory_role_based_access_control {
+    azure_rbac_enabled = true
+    tenant_id          = var.tenant_id
   }
 
-  azure_active_directory_role_based_access_control {
-    admin_group_object_ids = var.admin_group_object_ids
-    azure_rbac_enabled     = var.azure_rbac_enabled
+  network_profile {
+    network_plugin      = var.network_plugin
+    network_plugin_mode = var.network_plugin_mode
+    network_policy      = "calico"
+    load_balancer_sku   = "standard"
+    pod_cidr            = var.pod_cidr
+    service_cidr        = var.service_cidr
+    dns_service_ip      = var.dns_service_ip
+    outbound_type       = "loadBalancer"
+  }
+
+  auto_scaler_profile {
+    balance_similar_node_groups      = local.balance_similar_node_groups
+    expander                         = local.expander
+    max_graceful_termination_sec     = local.max_graceful_termination_sec
+    new_pod_scale_up_delay           = local.new_pod_scale_up_delay
+    scale_down_delay_after_add       = local.scale_down_delay_after_add
+    scale_down_delay_after_delete    = local.scale_down_delay_after_delete
+    scale_down_delay_after_failure   = local.scale_down_delay_after_failure
+    scale_down_utilization_threshold = local.scale_down_utilization_threshold
+    scan_interval                    = local.scan_interval
+    skip_nodes_with_local_storage    = local.skip_nodes_with_local_storage
+    skip_nodes_with_system_pods      = local.skip_nodes_with_system_pods
+  }
+
+  local_account_disabled = var.local_account_disabled
+  node_resource_group    = local.node_resource_group
+
+  oidc_issuer_enabled          = true
+  workload_identity_enabled    = true
+  azure_policy_enabled         = var.azure_policy_enabled
+  image_cleaner_enabled        = true
+  image_cleaner_interval_hours = 168
+
+  maintenance_window {
+    allowed {
+      day   = var.maintenance_window_day
+      hours = var.maintenance_window_hours
+    }
   }
 
   dynamic "key_vault_secrets_provider" {
     for_each = var.enable_key_vault_secrets_provider ? [1] : []
     content {
-      secret_rotation_enabled  = true
-      secret_rotation_interval = "2m"
+      secret_rotation_enabled  = var.key_vault_rotation_enabled
+      secret_rotation_interval = var.key_vault_rotation_interval
     }
   }
 
@@ -53,12 +87,19 @@ resource "azurerm_kubernetes_cluster" "this" {
     }
   }
 
-  tags = var.tags
+  storage_profile {
+    blob_driver_enabled         = var.blob_driver_enabled
+    disk_driver_enabled         = true
+    file_driver_enabled         = true
+    snapshot_controller_enabled = true
+  }
 
   lifecycle {
     ignore_changes = [
       kubernetes_version,
-      default_node_pool[0].node_count
+      tags
     ]
   }
+
+  tags = var.tags
 }
