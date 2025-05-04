@@ -84,7 +84,7 @@ No modules.
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | List of IP addresses of DNS servers. | `list(string)` | `null` | no |
 | <a name="input_edge_zone"></a> [edge\_zone](#input\_edge\_zone) | Specifies the Edge Zone within the Azure Region where this Virtual Network should exist. Changing this forces a new Virtual Network to be created. | `string` | `null` | no |
 | <a name="input_encryption"></a> [encryption](#input\_encryption) | A encryption block to specify if the encrypted Virtual Network allows VMs that do not support encryption. | <pre>object({<br/>    enforcement = string<br/>  })</pre> | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the virtual network belongs to. | `string` | `"dev"` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the Container App belongs to. | `string` | `"dev"` | no |
 | <a name="input_flow_timeout_in_minutes"></a> [flow\_timeout\_in\_minutes](#input\_flow\_timeout\_in\_minutes) | The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes. | `number` | `null` | no |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the virtual network is created. | `string` | `"westeurope"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The base name that will be used in the virtual network naming convention. | `string` | n/a | yes |

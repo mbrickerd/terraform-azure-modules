@@ -1,7 +1,7 @@
 formatter: "markdown"
 recursive:
   enabled: true
-  path: "./modules" # Change this to modules directory
+  path: "."
   include-main: false
 output:
   file: "README.md"

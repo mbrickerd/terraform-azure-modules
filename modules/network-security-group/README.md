@@ -66,7 +66,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the NSG belongs to. | `string` | `"dev"` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Specifies the environment the Container App belongs to. | `string` | `"dev"` | no |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the NSG exists. | `string` | `"westeurope"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The base name that will be used in the NSG naming convention. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the Resource Group where the NSG should be created. | `string` | n/a | yes |
