@@ -3,9 +3,9 @@ locals {
   name              = "aks-${local.naming_convention}"
   dns_prefix        = var.dns_prefix != null ? var.dns_prefix : "dns-${local.naming_convention}"
 
-  min_count  = var.enable_auto_scaling ? var.min_count : null
-  max_count  = var.enable_auto_scaling ? var.max_count : null
-  node_count = var.enable_auto_scaling ? null : var.node_count
+  min_count  = var.auto_scaling_enabled ? var.min_count : null
+  max_count  = var.auto_scaling_enabled ? var.max_count : null
+  node_count = var.auto_scaling_enabled ? null : var.node_count
 
   balance_similar_node_groups      = lookup(var.auto_scaler_profile, "balance_similar_node_groups", false)
   expander                         = lookup(var.auto_scaler_profile, "expander", "random")
