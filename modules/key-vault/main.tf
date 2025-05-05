@@ -24,10 +24,10 @@ resource "azurerm_key_vault" "this" {
 }
 
 resource "azurerm_role_assignment" "rbac_assignments" {
-  for_each = { for assignment in var.rbac_assignments : assignment.role_name => assignment }
+  for_each = { for assignment in var.rbac_assignments : assignment.role_definition_name => assignment }
 
   scope                = azurerm_key_vault.this.id
-  role_definition_name = each.value.role_name
+  role_definition_name = each.value.role_definition_name
   principal_id         = each.value.principal_id
 
   # Skip service principals that might not exist yet (like managed identities)

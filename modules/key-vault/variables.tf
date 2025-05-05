@@ -92,8 +92,8 @@ variable "diagnostic_settings" {
 variable "rbac_assignments" {
   description = "The list of RBAC role assignments to be created for the Key Vault."
   type = list(object({
-    role_name    = string
-    principal_id = string
+    role_definition_name = string
+    principal_id         = string
   }))
   default = []
 }
