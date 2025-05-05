@@ -1,8 +1,8 @@
 resource "azurerm_key_vault_secret" "this" {
-  for_each = local.secret_lookup
+  for_each = local.secret_metadata
 
-  name            = each.key
-  value           = local.content_lookup[each.key]
+  name            = each.value.name
+  value           = local.secret_content[each.key]
   key_vault_id    = var.key_vault_id
   content_type    = each.value.content_type
   expiration_date = each.value.expiration_date

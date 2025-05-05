@@ -4,23 +4,24 @@ variable "key_vault_id" {
 }
 
 variable "secrets" {
-  description = "A mapping of secrets to store in the Key Vault."
-  type = map(object({
+  description = "The list of secrets to store in the Key Vault."
+  type = list(object({
     name            = string
     content         = string
     content_type    = optional(string)
-    expiration_date = optional(string, "9999-12-31T23:59:59Z") # Far future date as default
+    expiration_date = optional(string)
     tags            = optional(map(string))
   }))
 
   sensitive = true
+
   validation {
     condition = alltrue([
       for s in var.secrets :
       can(regex("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$", s.expiration_date))
       if try(s.expiration_date, null) != null
     ])
-    error_message = "Expiration date must be in RFC3339 format (YYYY-MM-DDTHH:MM:SSZ)."
+    error_message = "Expiration date must be in RFC3339 format (`YYYY-MM-DDTHH:MM:SSZ`)."
   }
 }
 
