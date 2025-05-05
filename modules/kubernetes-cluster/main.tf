@@ -83,7 +83,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   dynamic "oms_agent" {
     for_each = var.log_analytics_workspace_id != null ? [1] : []
     content {
-      log_analytics_workspace_id = var.log_analytics_workspace_id
+      log_analytics_workspace_id      = var.log_analytics_workspace_id
+      msi_auth_for_monitoring_enabled = true
     }
   }
 
@@ -96,6 +97,7 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   lifecycle {
     ignore_changes = [
+      default_node_pool[0].node_count,
       kubernetes_version,
       tags
     ]
