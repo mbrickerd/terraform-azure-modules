@@ -11,8 +11,8 @@ variable "secrets" {
     expiration_date = optional(string, "9999-12-31T23:59:59Z") # Far future date as default
     tags            = optional(map(string))
   }))
-  sensitive = true
 
+  sensitive = true
   validation {
     condition = alltrue([
       for s in var.secrets :
