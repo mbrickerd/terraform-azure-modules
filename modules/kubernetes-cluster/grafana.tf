@@ -16,18 +16,3 @@ resource "azurerm_dashboard_grafana" "grafana" {
 
   tags = local.grafana_tags
 }
-
-resource "azurerm_kubernetes_cluster_extension" "prometheus" {
-  count = var.enable_prometheus ? 1 : 0
-
-  name           = "azure-monitor-metrics"
-  cluster_id     = azurerm_kubernetes_cluster.this.id
-  extension_type = "microsoft.azuremonitor.containers.monitoring"
-
-  configuration_settings = {
-    "logAnalyticsWorkspaceResourceID" = var.log_analytics_workspace_id
-    "prometheusIntegration"           = "enabled"
-  }
-
-  depends_on = [azurerm_monitor_data_collection_rule_association.prometheus_rule_association]
-}
