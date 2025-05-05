@@ -6,6 +6,7 @@ variable "key_vault_id" {
 variable "secrets" {
   description = "A mapping of secrets to store in the Key Vault."
   type = map(object({
+    name            = string
     content         = string
     content_type    = optional(string)
     expiration_date = optional(string, "9999-12-31T23:59:59Z") # Far future date as default
