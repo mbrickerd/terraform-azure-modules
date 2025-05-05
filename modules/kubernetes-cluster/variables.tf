@@ -61,7 +61,7 @@ variable "default_node_pool_vm_size" {
   default     = "Standard_A2_v2"
 }
 
-variable "enable_auto_scaling" {
+variable "auto_scaling_enabled" {
   description = "Whether to enable auto scaling for the default node pool. Defaults to `true`."
   type        = bool
   default     = true
