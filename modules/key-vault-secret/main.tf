@@ -1,5 +1,5 @@
 resource "azurerm_key_vault_secret" "this" {
-  for_each = var.secrets
+  for_each = local.secrets
 
   name            = each.key
   value           = each.value.content
