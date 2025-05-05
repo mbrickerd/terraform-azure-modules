@@ -230,16 +230,6 @@ variable "enable_prometheus" {
   type        = bool
   default     = true
 }
-
-variable "additional_prometheus_rules" {
-  description = "The list of additional Prometheus rules to create (besides the default rule)."
-  type = list(object({
-    name        = string
-    description = string
-  }))
-  default = []
-}
-
 variable "enable_grafana" {
   description = "Whether to enable the Azure Managed Grafana instance. Defaults to `true`."
   type        = bool
