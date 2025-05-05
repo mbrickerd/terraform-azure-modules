@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4.2 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 4.57.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 4.57.0 |
 
 ## Modules
 
@@ -22,11 +22,8 @@ No modules.
 |------|------|
 | [azurerm_dashboard_grafana.grafana](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dashboard_grafana) | resource |
 | [azurerm_kubernetes_cluster.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster) | resource |
-| [azurerm_kubernetes_cluster_extension.prometheus](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_extension) | resource |
 | [azurerm_monitor_data_collection_endpoint.prometheus_endpoint](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_endpoint) | resource |
-| [azurerm_monitor_data_collection_rule.additional_prometheus_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_rule) | resource |
 | [azurerm_monitor_data_collection_rule.prometheus_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_rule) | resource |
-| [azurerm_monitor_data_collection_rule_association.additional_prometheus_rule_associations](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_rule_association) | resource |
 | [azurerm_monitor_data_collection_rule_association.prometheus_rule_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_rule_association) | resource |
 | [azurerm_monitor_workspace.prometheus](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_workspace) | resource |
 
@@ -34,8 +31,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_prometheus_rules"></a> [additional\_prometheus\_rules](#input\_additional\_prometheus\_rules) | The list of additional Prometheus rules to create (besides the default rule). | <pre>list(object({<br/>    name        = string<br/>    description = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_auto_scaler_profile"></a> [auto\_scaler\_profile](#input\_auto\_scaler\_profile) | The auto-scaler profile configuration. | `map(string)` | `{}` | no |
+| <a name="input_auto_scaling_enabled"></a> [auto\_scaling\_enabled](#input\_auto\_scaling\_enabled) | Whether to enable auto scaling for the default node pool. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | The list of availability zones to use for the default node pool. Defaults to `[1]`. | `list(string)` | <pre>[<br/>  "1"<br/>]</pre> | no |
 | <a name="input_azure_policy_enabled"></a> [azure\_policy\_enabled](#input\_azure\_policy\_enabled) | Whether to enable the Azure Policy add-on. Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_blob_driver_enabled"></a> [blob\_driver\_enabled](#input\_blob\_driver\_enabled) | Whether to enable the Blob CSI driver. Defaults to `false`. | `bool` | `false` | no |
@@ -43,7 +40,6 @@ No modules.
 | <a name="input_default_node_pool_vm_size"></a> [default\_node\_pool\_vm\_size](#input\_default\_node\_pool\_vm\_size) | The size of the VM for the default node pool. Defaults to `Standard_A2_v2`. | `string` | `"Standard_A2_v2"` | no |
 | <a name="input_dns_prefix"></a> [dns\_prefix](#input\_dns\_prefix) | The DNS prefix specified when creating the managed cluster. | `string` | `null` | no |
 | <a name="input_dns_service_ip"></a> [dns\_service\_ip](#input\_dns\_service\_ip) | The IP address within the service CIDR for the Kubernetes DNS service. Defaults to `10.0.0.10`. | `string` | `"10.0.0.10"` | no |
-| <a name="input_enable_auto_scaling"></a> [enable\_auto\_scaling](#input\_enable\_auto\_scaling) | Whether to enable auto scaling for the default node pool. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_enable_grafana"></a> [enable\_grafana](#input\_enable\_grafana) | Whether to enable the Azure Managed Grafana instance. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_enable_key_vault_secrets_provider"></a> [enable\_key\_vault\_secrets\_provider](#input\_enable\_key\_vault\_secrets\_provider) | Whether to enable the Azure Key Vault Secrets Provider. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_enable_prometheus"></a> [enable\_prometheus](#input\_enable\_prometheus) | Whether to enable Azure Monitor managed service for Prometheus. Defaults to `true`. | `bool` | `true` | no |
