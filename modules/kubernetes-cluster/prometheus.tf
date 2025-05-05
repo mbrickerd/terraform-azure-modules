@@ -40,6 +40,13 @@ resource "azurerm_monitor_data_collection_rule" "prometheus_rule" {
     streams      = ["Microsoft-PrometheusMetrics"]
   }
 
+  data_sources {
+    prometheus_forwarder {
+      name    = "PrometheusDataSource"
+      streams = ["Microsoft-PrometheusMetrics"]
+    }
+  }
+
   tags = local.prometheus_tags
 }
 
