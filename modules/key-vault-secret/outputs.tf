@@ -1,10 +1,10 @@
-output "ids" {
-  description = "A mapping of secret names to their Key Vault IDs."
-  value       = { for s in azurerm_key_vault_secret.this : s.name => s.id }
+output "id" {
+  description = "The ID of the Key Vault secret"
+  value       = azurerm_key_vault_secret.this.id
 }
 
-output "references" {
-  description = "A mapping of secret names to their Key Vault resource references"
-  value       = { for s in azurerm_key_vault_secret.this : s.name => s.resource_id }
+output "resource_id" {
+  description = "The Resource ID of the Key Vault secret."
+  value       = azurerm_key_vault_secret.this.resource_id
   sensitive   = true
 }
