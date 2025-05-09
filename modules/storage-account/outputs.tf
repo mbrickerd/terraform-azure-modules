@@ -3,6 +3,11 @@ output "id" {
   value       = azurerm_storage_account.this.id
 }
 
+output "name" {
+  description = "The name of the Storage Account."
+  value       = azurerm_storage_account.this.name
+}
+
 output "primary_location" {
   description = "The primary location of the storage account."
   value       = azurerm_storage_account.this.primary_location
