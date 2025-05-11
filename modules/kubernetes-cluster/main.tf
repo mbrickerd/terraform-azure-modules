@@ -25,7 +25,6 @@ resource "azurerm_kubernetes_cluster" "this" {
       max_surge = var.max_surge
     }
   }
-
   identity {
     type = "SystemAssigned"
   }
