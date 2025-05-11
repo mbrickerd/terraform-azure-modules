@@ -65,7 +65,7 @@ variable "capture_enabled" {
 }
 
 variable "capture_encoding" {
-  description = "Specifies the Encoding used for the Capture Description. Possible values are Avro and AvroDeflate."
+  description = "Specifies the Encoding used for the Capture Description. Possible values are `Avro` and `AvroDeflate`."
   type        = string
   default     = "Avro"
   validation {

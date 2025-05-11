@@ -58,3 +58,22 @@ resource "azurerm_monitor_data_collection_rule_association" "prometheus_rule_ass
   data_collection_rule_id = azurerm_monitor_data_collection_rule.prometheus_rule[0].id
   description             = "Association for Prometheus metrics from AKS."
 }
+
+resource "azurerm_kubernetes_cluster_extension" "prometheus" {
+  name           = "azure-monitor-metrics"
+  cluster_id     = azurerm_kubernetes_cluster.this.id
+  extension_type = "microsoft.azuremonitor.containers.prometheus"
+  depends_on     = [azurerm_monitor_data_collection_rule.prometheus_rule]
+
+  configuration_settings = {
+    "monitor" = "{\"labelLimit\":\"10\",\"metricNameLength\":\"2048\",\"metricValueLength\":\"1024\",\"labelsLength\":\"2048\",\"samplesLimit\":\"100\"}"
+  }
+}
+
+resource "azurerm_monitor_data_collection_rule_association" "prometheus_extension_association" {
+  name                    = "prometheusExtensionAssociation"
+  target_resource_id      = azurerm_kubernetes_cluster_extension.prometheus.id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.prometheus_rule[0].id
+  description             = "Association between Prometheus extension and DCR"
+  depends_on              = [azurerm_kubernetes_cluster_extension.prometheus]
+}
