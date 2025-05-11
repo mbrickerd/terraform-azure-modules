@@ -7,19 +7,20 @@ resource "azurerm_kubernetes_cluster" "this" {
   sku_tier            = var.sku_tier
 
   default_node_pool {
-    name                 = var.default_node_pool_name
-    vm_size              = var.default_node_pool_vm_size
-    auto_scaling_enabled = var.auto_scaling_enabled
-    min_count            = local.min_count
-    max_count            = local.max_count
-    node_count           = local.node_count
-    os_disk_size_gb      = var.os_disk_size_gb
-    os_disk_type         = var.os_disk_type
-    max_pods             = var.max_pods
-    scale_down_mode      = var.scale_down_mode
-    orchestrator_version = var.kubernetes_version
-    zones                = var.availability_zones
-    vnet_subnet_id       = var.vnet_subnet_id
+    name                        = var.default_node_pool_name
+    vm_size                     = var.default_node_pool_vm_size
+    auto_scaling_enabled        = var.auto_scaling_enabled
+    min_count                   = local.min_count
+    max_count                   = local.max_count
+    node_count                  = local.node_count
+    os_disk_size_gb             = var.os_disk_size_gb
+    os_disk_type                = var.os_disk_type
+    max_pods                    = var.max_pods
+    scale_down_mode             = var.scale_down_mode
+    orchestrator_version        = var.kubernetes_version
+    zones                       = var.availability_zones
+    temporary_name_for_rotation = var.temporary_name_for_rotation
+    vnet_subnet_id              = var.vnet_subnet_id
     upgrade_settings {
       max_surge = var.max_surge
     }

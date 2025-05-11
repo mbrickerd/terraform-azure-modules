@@ -225,6 +225,12 @@ variable "blob_driver_enabled" {
   default     = false
 }
 
+variable "temporary_name_for_rotation" {
+  description = "The temporary name to use for the default node pool when upgrading it."
+  type        = string
+  default     = null
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics."
   type        = string
