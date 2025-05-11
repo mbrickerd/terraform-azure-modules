@@ -37,6 +37,11 @@ variable "kubernetes_version" {
   default     = "1.31.7"
 }
 
+variable "vnet_subnet_id" {
+  description = "The ID of the subnet where the AKS cluster will be deployed."
+  type        = string
+}
+
 variable "dns_prefix" {
   description = "The DNS prefix specified when creating the managed cluster."
   type        = string

@@ -19,6 +19,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     scale_down_mode      = var.scale_down_mode
     orchestrator_version = var.kubernetes_version
     zones                = var.availability_zones
+    vnet_subnet_id       = var.vnet_subnet_id
     upgrade_settings {
       max_surge = var.max_surge
     }
